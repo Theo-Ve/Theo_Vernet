@@ -9,7 +9,6 @@
     :root{
       --bg:#080808;
       --card:#0f0f0f;
-      --card2:#141414;
       --accent:#c62828;
       --accent2:#e53935;
       --text:#e0e0e0;
@@ -17,67 +16,24 @@
       --border:#1e1e1e;
       --mono:'Share Tech Mono', monospace;
       --head:'Oswald', sans-serif;
+      --safe:#2e7d32;--safe-text:#a5d6a7;
+      --euclid:#e67e22;--euclid-text:#f39c12;
+      --keter:#c62828;--keter-text:#ef9a9a;
+      --thaumiel:#6a1b9a;--thaumiel-text:#ce93d8;
+      --apollyon:#555;--apollyon-text:#fff;
+      --neutralized:#37474f;--neutralized-text:#90a4ae;
     }
     *{box-sizing:border-box;margin:0;padding:0}
     body{font-family:var(--mono);background:var(--bg);color:var(--text);min-height:100vh}
 
-    header{
-      text-align:center;
-      padding:36px 20px 28px;
-      background:#0a0a0a;
-      border-bottom:2px solid var(--accent);
-      position:relative;
-      overflow:hidden;
-    }
-    header::before{
-      content:'';
-      position:absolute;
-      inset:0;
-      background:repeating-linear-gradient(0deg,transparent,transparent 30px,rgba(198,40,40,.03) 30px,rgba(198,40,40,.03) 31px);
-      pointer-events:none;
-    }
-    header h1{
-      font-family:var(--head);
-      font-size:clamp(2rem,6vw,3.5rem);
-      font-weight:700;
-      letter-spacing:.2em;
-      color:#fff;
-      text-shadow:0 0 30px rgba(198,40,40,.4);
-    }
-    header p{
-      color:var(--muted);
-      letter-spacing:.3em;
-      font-size:.75rem;
-      margin-top:6px;
-    }
-    .clearance{
-      display:inline-block;
-      margin-top:10px;
-      font-size:.65rem;
-      color:var(--accent);
-      border:1px solid var(--accent);
-      padding:2px 10px;
-      letter-spacing:.15em;
-    }
+    header{text-align:center;padding:36px 20px 28px;background:#0a0a0a;border-bottom:2px solid var(--accent);position:relative;overflow:hidden}
+    header::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 30px,rgba(198,40,40,.03) 30px,rgba(198,40,40,.03) 31px);pointer-events:none}
+    header h1{font-family:var(--head);font-size:clamp(2rem,6vw,3.5rem);font-weight:700;letter-spacing:.2em;color:#fff;text-shadow:0 0 30px rgba(198,40,40,.4)}
+    header p{color:var(--muted);letter-spacing:.3em;font-size:.75rem;margin-top:6px}
+    .clearance{display:inline-block;margin-top:10px;font-size:.65rem;color:var(--accent);border:1px solid var(--accent);padding:2px 10px;letter-spacing:.15em}
 
-    nav{
-      display:flex;
-      justify-content:center;
-      gap:0;
-      background:#0c0c0c;
-      border-bottom:1px solid var(--border);
-    }
-    nav a{
-      cursor:pointer;
-      color:var(--muted);
-      padding:14px 28px;
-      font-family:var(--head);
-      font-size:.85rem;
-      letter-spacing:.15em;
-      border-bottom:2px solid transparent;
-      transition:all .2s;
-      text-transform:uppercase;
-    }
+    nav{display:flex;justify-content:center;background:#0c0c0c;border-bottom:1px solid var(--border)}
+    nav a{cursor:pointer;color:var(--muted);padding:14px 28px;font-family:var(--head);font-size:.85rem;letter-spacing:.15em;border-bottom:2px solid transparent;transition:all .2s;text-transform:uppercase}
     nav a:hover{color:#fff}
     nav a.active{color:var(--accent2);border-bottom-color:var(--accent2)}
 
@@ -85,178 +41,151 @@
     section.active{display:block}
     @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
+    .section-title{font-family:var(--head);letter-spacing:.15em;color:#fff;margin-bottom:20px;font-size:1.4rem;border-bottom:1px solid #1a1a1a;padding-bottom:12px}
+
+    /* HOME */
     .home-intro{border-left:3px solid var(--accent);padding-left:18px;margin-bottom:20px}
     .home-intro h2{font-family:var(--head);font-size:1.6rem;letter-spacing:.1em;color:#fff;margin-bottom:12px}
     .home-intro p{color:#aaa;line-height:1.8;margin-bottom:12px;font-size:.88rem}
     .redacted{background:var(--accent);color:var(--accent);padding:0 4px;border-radius:2px;user-select:none}
 
-    .filters{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      margin-bottom:22px;
-      align-items:center;
-    }
-    .search-box{
-      flex:1;
-      min-width:180px;
-      background:#111;
-      border:1px solid #2a2a2a;
-      color:var(--text);
-      padding:9px 14px;
-      font-family:var(--mono);
-      font-size:.82rem;
-      outline:none;
-      transition:border .2s;
-    }
+    /* TOOLBAR */
+    .toolbar{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:22px;align-items:center}
+    .db-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:10px}
+    .count-label{color:var(--muted);font-size:.75rem}
+    .search-box{flex:1;min-width:180px;background:#111;border:1px solid #2a2a2a;color:var(--text);padding:9px 14px;font-family:var(--mono);font-size:.82rem;outline:none;transition:border .2s}
     .search-box:focus{border-color:var(--accent)}
     .search-box::placeholder{color:#444}
-    .filter-btn{
-      background:#111;
-      color:var(--muted);
-      border:1px solid #222;
-      padding:8px 14px;
-      font-family:var(--mono);
-      font-size:.75rem;
-      cursor:pointer;
-      letter-spacing:.1em;
-      transition:all .2s;
-    }
-    .filter-btn:hover{border-color:#444;color:#ccc}
+    .filter-btn,.sort-select{background:#111;color:var(--muted);border:1px solid #222;padding:8px 14px;font-family:var(--mono);font-size:.75rem;cursor:pointer;letter-spacing:.1em;transition:all .2s;outline:none}
+    .filter-btn:hover,.sort-select:hover{border-color:#444;color:#ccc}
     .filter-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+    .sort-select option{background:#111}
 
+    /* GRID */
     .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
-
-    .card{
-      background:var(--card);
-      border:1px solid var(--border);
-      overflow:hidden;
-      position:relative;
-      transition:border-color .2s,transform .2s;
-    }
+    .card{background:var(--card);border:1px solid var(--border);overflow:hidden;position:relative;transition:border-color .2s,transform .2s}
     .card:hover{border-color:#333;transform:translateY(-2px)}
-    .card img{
-      width:100%;
-      height:160px;
-      object-fit:cover;
-      display:block;
-      filter:grayscale(20%);
-    }
+    .card img{width:100%;height:160px;object-fit:cover;display:block;filter:grayscale(20%)}
     .card-content{padding:14px}
-    .card-content h3{
-      font-family:var(--head);
-      font-size:1rem;
-      letter-spacing:.08em;
-      color:#fff;
-      margin-bottom:6px;
-    }
+    .card-content h3{font-family:var(--head);font-size:1rem;letter-spacing:.08em;color:#fff;margin-bottom:6px}
     .card-content p{color:#888;font-size:.78rem;line-height:1.5;margin-bottom:10px}
-    .scp-id{
-      position:absolute;
-      top:8px;left:8px;
-      background:rgba(0,0,0,.8);
-      border:1px solid var(--accent);
-      color:var(--accent);
-      font-size:.65rem;
-      padding:2px 7px;
-      letter-spacing:.12em;
-    }
-    .scp-class-badge{
-      position:absolute;
-      bottom:8px;right:8px;
-      font-size:.6rem;
-      padding:2px 7px;
-      letter-spacing:.1em;
-      text-transform:uppercase;
-      font-family:var(--head);
-    }
-    .badge-safe{background:rgba(46,125,50,.9);color:#a5d6a7}
-    .badge-euclid{background:rgba(230,126,34,.15);color:#f39c12;border:1px solid #f39c12}
-    .badge-keter{background:rgba(198,40,40,.2);color:#ef9a9a;border:1px solid var(--accent)}
-    .badge-thaumiel{background:rgba(74,20,140,.3);color:#ce93d8;border:1px solid #9c27b0}
-    .badge-apollyon{background:rgba(0,0,0,.8);color:#fff;border:1px solid #fff}
+    .card-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+    .scp-id{position:absolute;top:8px;left:8px;background:rgba(0,0,0,.8);border:1px solid var(--accent);color:var(--accent);font-size:.65rem;padding:2px 7px;letter-spacing:.12em}
+    .scp-class-badge{position:absolute;bottom:8px;right:8px;font-size:.6rem;padding:2px 7px;letter-spacing:.1em;text-transform:uppercase;font-family:var(--head)}
+    .badge-safe{background:rgba(46,125,50,.9);color:var(--safe-text)}
+    .badge-euclid{background:rgba(230,126,34,.15);color:var(--euclid-text);border:1px solid var(--euclid)}
+    .badge-keter{background:rgba(198,40,40,.2);color:var(--keter-text);border:1px solid var(--keter)}
+    .badge-thaumiel{background:rgba(74,20,140,.3);color:var(--thaumiel-text);border:1px solid var(--thaumiel)}
+    .badge-apollyon{background:rgba(0,0,0,.8);color:var(--apollyon-text);border:1px solid #fff}
+    .badge-neutralized{background:rgba(55,71,79,.4);color:var(--neutralized-text);border:1px solid var(--neutralized)}
 
-    .btn-ver{
-      background:transparent;
-      color:var(--accent);
-      border:1px solid var(--accent);
-      padding:5px 12px;
-      font-family:var(--mono);
-      font-size:.72rem;
-      cursor:pointer;
-      letter-spacing:.1em;
-      transition:all .2s;
-    }
-    .btn-ver:hover{background:var(--accent);color:#fff}
+    .btn-ver,.btn-fav,.btn-compare,.btn-back{background:transparent;border:1px solid var(--accent);color:var(--accent);padding:5px 12px;font-family:var(--mono);font-size:.72rem;cursor:pointer;letter-spacing:.1em;transition:all .2s}
+    .btn-ver:hover,.btn-back:hover{background:var(--accent);color:#fff}
+    .btn-fav{border-color:#2a2a2a;color:#444}
+    .btn-fav:hover{border-color:#888;color:#888}
+    .btn-fav.active{color:#f5c518;border-color:#f5c518}
+    .btn-compare{border-color:#1565c0;color:#64b5f6}
+    .btn-compare:hover{background:#1565c0;color:#fff}
+    .btn-compare.selected{background:#1565c0;color:#fff}
 
-    .no-results{
-      grid-column:1/-1;
-      text-align:center;
-      padding:40px;
-      color:var(--muted);
-      font-size:.85rem;
-    }
+    .visited-dot{width:6px;height:6px;background:#2e7d32;border-radius:50%;position:absolute;top:8px;right:8px;display:none}
+    .visited-dot.show{display:block}
 
+    .no-results{grid-column:1/-1;text-align:center;padding:40px;color:var(--muted);font-size:.85rem}
+
+    /* CLASSIFICATION */
     .class-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
-    .class-card{
-      background:var(--card);
-      border:1px solid var(--border);
-      padding:20px;
-      display:flex;
-      gap:16px;
-      align-items:flex-start;
-      transition:border-color .2s;
-    }
-    .class-card:hover{border-color:#333}
-    .class-card h3{font-family:var(--head);font-size:1.1rem;letter-spacing:.1em;color:#fff;margin-bottom:6px}
+    .class-card{background:var(--card);border:1px solid var(--border);border-left-width:3px;padding:20px;transition:border-color .2s,transform .2s}
+    .class-card:hover{transform:translateY(-2px)}
+    .class-card h3{font-family:var(--head);font-size:1.1rem;letter-spacing:.1em;margin-bottom:6px}
     .class-card p{color:#888;font-size:.8rem;line-height:1.6}
+    .class-safe{border-left-color:var(--safe)}.class-safe h3{color:var(--safe-text)}
+    .class-euclid{border-left-color:var(--euclid)}.class-euclid h3{color:var(--euclid-text)}
+    .class-keter{border-left-color:var(--keter)}.class-keter h3{color:var(--keter-text)}
+    .class-thaumiel{border-left-color:var(--thaumiel)}.class-thaumiel h3{color:var(--thaumiel-text)}
+    .class-apollyon{border-left-color:#888}.class-apollyon h3{color:#ccc}
+    .class-neutralized{border-left-color:var(--neutralized)}.class-neutralized h3{color:var(--neutralized-text)}
 
-    .modal{
-      position:fixed;inset:0;
-      background:rgba(0,0,0,.9);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      z-index:999;
-      padding:20px;
-      backdrop-filter:blur(4px);
-    }
+    /* MODAL */
+    .modal{position:fixed;inset:0;background:rgba(0,0,0,.9);display:none;align-items:center;justify-content:center;z-index:999;padding:20px;backdrop-filter:blur(4px)}
     .modal.active{display:flex}
-    .modal-box{
-      background:#0e0e0e;
-      border:1px solid var(--accent);
-      max-width:620px;
-      width:100%;
-      position:relative;
-      animation:slideUp .25s ease;
-    }
+    .modal-box{background:#0e0e0e;border:1px solid var(--accent);max-width:620px;width:100%;display:flex;flex-direction:column;max-height:90vh;animation:slideUp .25s ease}
     @keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-    .modal-header{
-      background:#0a0a0a;
-      border-bottom:1px solid #1a1a1a;
-      padding:14px 20px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-    }
+    .modal-header{background:#0a0a0a;border-bottom:1px solid #1a1a1a;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
     .modal-header h3{font-family:var(--head);color:#fff;letter-spacing:.1em;font-size:1.1rem}
-    .modal-close{
-      background:none;border:none;color:var(--muted);
-      font-size:1.2rem;cursor:pointer;padding:4px 8px;
-      transition:color .2s;line-height:1;
-    }
+    .modal-close{background:none;border:none;color:var(--muted);font-size:1.2rem;cursor:pointer;padding:4px 8px;transition:color .2s;line-height:1}
     .modal-close:hover{color:var(--accent)}
-    .modal-body{padding:20px}
+    .modal-body{padding:20px;overflow-y:auto;flex:1}
     .modal-body img{width:100%;height:200px;object-fit:cover;margin-bottom:16px;display:block;filter:grayscale(20%)}
-    .modal-label{
-      font-size:.65rem;
-      color:var(--accent);
-      letter-spacing:.2em;
-      margin-bottom:4px;
-    }
+    .modal-label{font-size:.65rem;color:var(--accent);letter-spacing:.2em;margin-bottom:4px}
     .modal-body p{color:#aaa;font-size:.85rem;line-height:1.8}
 
-    footer{text-align:center;padding:18px;background:#0a0a0a;border-top:1px solid var(--border);color:var(--muted);font-size:.7rem;letter-spacing:.15em;margin-top:40px}
+    /* DETAIL PAGE */
+    #detail{padding:30px 20px;max-width:900px;margin:auto}
+    .detail-doc{background:#0a0a0a;border:1px solid #222;padding:0;font-family:var(--mono)}
+    .detail-doc-header{background:#0d0d0d;border-bottom:2px solid var(--accent);padding:20px 28px}
+    .detail-doc-header .doc-id{font-size:.7rem;color:var(--accent);letter-spacing:.2em;margin-bottom:6px}
+    .detail-doc-header h2{font-family:var(--head);font-size:2rem;letter-spacing:.12em;color:#fff}
+    .detail-doc-header .doc-class{display:inline-block;margin-top:10px;font-size:.75rem;padding:3px 12px;letter-spacing:.15em;font-family:var(--head)}
+    .detail-body{padding:28px}
+    .detail-section{margin-bottom:28px;border-left:2px solid #1e1e1e;padding-left:16px}
+    .detail-section-label{font-size:.6rem;color:var(--accent);letter-spacing:.25em;margin-bottom:8px;text-transform:uppercase}
+    .detail-section p{color:#aaa;font-size:.85rem;line-height:1.9}
+    .detail-section ul{color:#aaa;font-size:.85rem;line-height:2;padding-left:16px}
+    .detail-meta{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px;margin-bottom:28px}
+    .meta-item{background:#111;border:1px solid #1a1a1a;padding:12px 16px}
+    .meta-item .meta-label{font-size:.6rem;color:var(--muted);letter-spacing:.2em;margin-bottom:4px}
+    .meta-item .meta-val{font-size:.9rem;color:#fff;font-family:var(--head);letter-spacing:.08em}
+    .detail-img{width:100%;max-height:320px;object-fit:cover;display:block;filter:grayscale(15%);margin-bottom:28px;border:1px solid #1a1a1a}
+    .detail-back-bar{display:flex;gap:10px;align-items:center;margin-bottom:20px;flex-wrap:wrap}
+
+    /* COMPARE */
+    #compare-bar{
+      position:fixed;bottom:0;left:0;right:0;
+      background:#0a0a0a;
+      border-top:2px solid #1565c0;
+      padding:12px 24px;
+      display:none;
+      align-items:center;
+      gap:12px;
+      z-index:100;
+      flex-wrap:wrap;
+    }
+    #compare-bar.show{display:flex}
+    #compare-bar span{color:#64b5f6;font-size:.8rem;flex:1}
+    #compare-bar button{background:#1565c0;color:#fff;border:none;padding:7px 16px;font-family:var(--mono);font-size:.75rem;cursor:pointer;letter-spacing:.1em;transition:background .2s}
+    #compare-bar button:hover{background:#1976d2}
+    #compare-bar .btn-clear-compare{background:transparent;color:var(--muted);border:1px solid #333}
+    #compare-bar .btn-clear-compare:hover{background:#1a1a1a}
+
+    #compare-view{padding:30px 20px;max-width:1100px;margin:auto}
+    .compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+    @media(max-width:640px){.compare-grid{grid-template-columns:1fr}}
+    .compare-col{background:#0a0a0a;border:1px solid #222}
+    .compare-col-header{background:#0d0d0d;border-bottom:1px solid #1a1a1a;padding:14px 18px}
+    .compare-col-header .cmp-id{font-size:.65rem;color:var(--accent);letter-spacing:.2em;margin-bottom:4px}
+    .compare-col-header h3{font-family:var(--head);color:#fff;font-size:1.2rem;letter-spacing:.1em}
+    .compare-col img{width:100%;height:180px;object-fit:cover;filter:grayscale(20%)}
+    .compare-col-body{padding:16px}
+    .cmp-row{border-bottom:1px solid #141414;padding:10px 0;display:flex;flex-direction:column;gap:4px}
+    .cmp-row:last-child{border-bottom:none}
+    .cmp-label{font-size:.6rem;color:var(--muted);letter-spacing:.18em}
+    .cmp-val{font-size:.82rem;color:#ddd;line-height:1.6}
+
+    /* HISTORY */
+    .history-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+    .history-item{background:var(--card);border:1px solid var(--border);padding:14px;display:flex;flex-direction:column;gap:6px;transition:border-color .2s}
+    .history-item:hover{border-color:#333}
+    .history-item .h-id{font-size:.65rem;color:var(--accent);letter-spacing:.15em}
+    .history-item .h-name{font-family:var(--head);color:#fff;font-size:.95rem;letter-spacing:.08em}
+    .history-item .h-time{font-size:.65rem;color:var(--muted)}
+    .history-item .btn-ver{margin-top:4px;align-self:flex-start}
+    .history-empty{color:var(--muted);font-size:.85rem;padding:20px 0}
+    .history-actions{display:flex;gap:10px;margin-bottom:18px}
+    .btn-danger{background:transparent;color:#e57373;border:1px solid #e57373;padding:6px 14px;font-family:var(--mono);font-size:.72rem;cursor:pointer;letter-spacing:.1em;transition:all .2s}
+    .btn-danger:hover{background:#b71c1c;color:#fff;border-color:#b71c1c}
+
+    footer{text-align:center;padding:18px 18px 60px;background:#0a0a0a;border-top:1px solid var(--border);color:var(--muted);font-size:.7rem;letter-spacing:.15em;margin-top:40px}
   </style>
 </head>
 <body>
@@ -269,10 +198,12 @@
 
 <nav>
   <a onclick="showSection('home',this)" class="active">INICIO</a>
-  <a onclick="showSection('scp',this)">BASE DE DATOS</a>
+  <a onclick="showSection('scp',this)" id="nav-scp">BASE DE DATOS</a>
   <a onclick="showSection('clases',this)">CLASIFICACIÓN</a>
+  <a onclick="showSection('history',this)" id="nav-history">HISTORIAL</a>
 </nav>
 
+<!-- HOME -->
 <section id="home" class="active">
   <div class="home-intro">
     <h2>¿QUÉ ES SCP?</h2>
@@ -284,70 +215,106 @@
   </div>
 </section>
 
+<!-- CLASIFICACIÓN -->
 <section id="clases">
-  <h2 style="font-family:var(--head);letter-spacing:.15em;color:#fff;margin-bottom:20px;font-size:1.4rem;border-bottom:1px solid #1a1a1a;padding-bottom:12px">CLASIFICACIÓN DE OBJETOS</h2>
+  <h2 class="section-title">CLASIFICACIÓN DE OBJETOS</h2>
   <div class="class-grid">
-    <div class="class-card">
-      <div>
-        <h3>SAFE</h3>
-        <p>Fáciles de contener y comportamiento predecible. El procedimiento de contención es bien comprendido y no requiere recursos significativos.</p>
-      </div>
-    </div>
-    <div class="class-card">
-      <div>
-        <h3>EUCLID</h3>
-        <p>Impredecibles o no completamente comprendidos. Requieren recursos más específicos o su comportamiento no puede garantizarse bajo contención.</p>
-      </div>
-    </div>
-    <div class="class-card">
-      <div>
-        <h3>KETER</h3>
-        <p>Extremadamente peligrosos o difíciles de contener. La Fundación aún no ha desarrollado un método confiable de contención o requiere recursos masivos.</p>
-      </div>
-    </div>
-    <div class="class-card">
-      <div>
-        <h3>THAUMIEL</h3>
-        <p>Anomalías utilizadas por la Fundación para contener otros SCPs. Su existencia es conocida solo por el personal de más alto nivel.</p>
-      </div>
-    </div>
-    <div class="class-card">
-      <div>
-        <h3>APOLLYON</h3>
-        <p>No pueden ser contenidos y representan amenazas de extinción global. Actualmente ningún protocolo puede detener su influencia.</p>
-      </div>
-    </div>
-    <div class="class-card">
-      <div>
-        <h3>NEUTRALIZED</h3>
-        <p>Anomalías que han sido destruidas o han perdido sus propiedades anómalas, ya sea intencionalmente o por accidente.</p>
-      </div>
-    </div>
+    <div class="class-card class-safe"><div><h3>SAFE</h3><p>Fáciles de contener y comportamiento predecible. El procedimiento de contención es bien comprendido y no requiere recursos significativos.</p></div></div>
+    <div class="class-card class-euclid"><div><h3>EUCLID</h3><p>Impredecibles o no completamente comprendidos. Requieren recursos más específicos o su comportamiento no puede garantizarse bajo contención.</p></div></div>
+    <div class="class-card class-keter"><div><h3>KETER</h3><p>Extremadamente peligrosos o difíciles de contener. La Fundación aún no ha desarrollado un método confiable de contención o requiere recursos masivos.</p></div></div>
+    <div class="class-card class-thaumiel"><div><h3>THAUMIEL</h3><p>Anomalías utilizadas por la Fundación para contener otros SCPs. Su existencia es conocida solo por el personal de más alto nivel.</p></div></div>
+    <div class="class-card class-apollyon"><div><h3>APOLLYON</h3><p>No pueden ser contenidos y representan amenazas de extinción global. Actualmente ningún protocolo puede detener su influencia.</p></div></div>
+    <div class="class-card class-neutralized"><div><h3>NEUTRALIZED</h3><p>Anomalías que han sido destruidas o han perdido sus propiedades anómalas, ya sea intencionalmente o por accidente.</p></div></div>
   </div>
 </section>
 
+<!-- BASE DE DATOS -->
 <section id="scp">
-  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:10px">
-    <h2 style="font-family:var(--head);letter-spacing:.15em;color:#fff;font-size:1.4rem">BASE DE DATOS SCP</h2>
-    <span id="countLabel" style="color:var(--muted);font-size:.75rem"></span>
+  <div class="db-header">
+    <h2 class="section-title" style="margin-bottom:0;border:none;padding:0">BASE DE DATOS SCP</h2>
+    <span class="count-label" id="countLabel"></span>
   </div>
-
-  <div class="filters">
-    <input class="search-box" type="text" id="searchInput" placeholder="Buscar SCP..." oninput="filterSCPs()">
+  <div class="toolbar">
+    <input class="search-box" type="text" id="searchInput" placeholder="Buscar SCP..." oninput="renderSCPs()" aria-label="Buscar">
     <button class="filter-btn active" onclick="setFilter('all',this)">TODOS</button>
     <button class="filter-btn" onclick="setFilter('safe',this)">SAFE</button>
     <button class="filter-btn" onclick="setFilter('euclid',this)">EUCLID</button>
     <button class="filter-btn" onclick="setFilter('keter',this)">KETER</button>
+    <button class="filter-btn" id="btnFavs" onclick="toggleFavFilter(this)">⭐ FAVS</button>
+    <select class="sort-select" id="sortSelect" onchange="renderSCPs()">
+      <option value="num-asc">N° ASC</option>
+      <option value="num-desc">N° DESC</option>
+      <option value="name-asc">NOMBRE A-Z</option>
+      <option value="name-desc">NOMBRE Z-A</option>
+      <option value="class">CLASE</option>
+    </select>
   </div>
-
   <div class="grid" id="scpList"></div>
 </section>
 
-<div class="modal" id="modal" onclick="handleModalClick(event)">
-  <div class="modal-box" id="modalBox">
+<!-- DETALLE -->
+<div id="detail" style="display:none">
+  <div class="detail-back-bar">
+    <button class="btn-back" onclick="closeDetail()">← VOLVER A LA BASE DE DATOS</button>
+    <button class="btn-compare" id="detailCompareBtn" onclick="toggleCompareFromDetail()">+ COMPARAR</button>
+    <button class="btn-fav" id="detailFavBtn" onclick="toggleFavFromDetail()">⭐ FAVORITO</button>
+  </div>
+  <div class="detail-doc">
+    <div class="detail-doc-header">
+      <div class="doc-id" id="detailId"></div>
+      <h2 id="detailName"></h2>
+      <span class="detail-doc-header .doc-class" id="detailClassBadge"></span>
+    </div>
+    <div class="detail-body">
+      <img class="detail-img" id="detailImg" src="" alt="">
+      <div class="detail-meta" id="detailMeta"></div>
+      <div class="detail-section">
+        <div class="detail-section-label">PROCEDIMIENTOS ESPECIALES DE CONTENCIÓN</div>
+        <p id="detailContainment"></p>
+      </div>
+      <div class="detail-section">
+        <div class="detail-section-label">DESCRIPCIÓN</div>
+        <p id="detailDesc"></p>
+      </div>
+      <div class="detail-section">
+        <div class="detail-section-label">ADDENDUM — INCIDENTES REGISTRADOS</div>
+        <p id="detailAddendum"></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- COMPARAR -->
+<div id="compare-view" style="display:none">
+  <div class="detail-back-bar">
+    <button class="btn-back" onclick="closeCompareView()">← VOLVER</button>
+  </div>
+  <h2 class="section-title">COMPARACIÓN DE ARCHIVOS</h2>
+  <div class="compare-grid" id="compareGrid"></div>
+</div>
+
+<!-- HISTORIAL -->
+<section id="history">
+  <h2 class="section-title">HISTORIAL DE ARCHIVOS CONSULTADOS</h2>
+  <div class="history-actions">
+    <button class="btn-danger" onclick="clearHistory()">✕ LIMPIAR HISTORIAL</button>
+  </div>
+  <div class="history-grid" id="historyList"></div>
+</section>
+
+<!-- BARRA DE COMPARACIÓN -->
+<div id="compare-bar">
+  <span id="compareBarLabel">0 SCPs seleccionados para comparar</span>
+  <button onclick="openCompareView()">COMPARAR AHORA</button>
+  <button class="btn-clear-compare" onclick="clearCompare()">CANCELAR</button>
+</div>
+
+<!-- MODAL (legacy, kept for quick access) -->
+<div class="modal" id="modal" onclick="handleModalClick(event)" role="dialog" aria-modal="true">
+  <div class="modal-box">
     <div class="modal-header">
       <h3 id="modalTitle"></h3>
-      <button class="modal-close" onclick="closeModal()">✕</button>
+      <button class="modal-close" onclick="closeModal()" aria-label="Cerrar">✕</button>
     </div>
     <div class="modal-body">
       <img id="modalImg" src="" alt="">
@@ -362,155 +329,327 @@
 <script>
 const scps = [
   {
-    id:"173",
-    name:"The Sculpture",
-    class:"euclid",
+    id:"173", name:"The Sculpture", class:"keter",
     img:"https://static.wikia.nocookie.net/scpcontainmentbreach/images/b/b9/SCP-173.jpg/revision/latest?cb=20130615021702&path-prefix=es",
-    desc:"Escultura que se mueve cuando no es observada directamente.",
-    full:"SCP-173 es una escultura animada construida de hormigón y barras de acero. Permanece completamente inmóvil bajo observación directa, pero se desplaza a velocidades extremas cuando el contacto visual se interrumpe incluso por un instante. Ataca a sus víctimas rompiendo el cuello o estrangulándolas. Los protocolos exigen al menos tres observadores en todo momento durante las entradas a la cámara."
+    desc:"Escultura animada de hormigón que ataca cuando no es observada.",
+    full:"SCP-173 es una escultura animada construida de hormigón y barras de acero. Permanece completamente inmóvil bajo observación directa, pero se desplaza a velocidades extremas cuando el contacto visual se interrumpe incluso por un instante. Ataca a sus víctimas rompiendo el cuello o estrangulándolas. Los protocolos exigen al menos tres observadores en todo momento durante las entradas a la cámara.",
+    containment:"SCP-173 debe ser mantenido en una cámara de contención de 5x5x5 metros con paredes de hormigón reforzado. El acceso requiere un mínimo de tres personas. Antes de abrir las puertas, se debe activar la alerta de parpadeo. En ningún caso se debe perder el contacto visual con el objeto.",
+    addendum:"Addendum 173-A: El 17/03/████, un investigador perdió el contacto visual por menos de 0.3 segundos durante una inspección de rutina. El individuo falleció por fractura cervical C1-C2. Se reforzaron los protocolos de entrada. Addendum 173-B: Intentos de comunicación con el objeto han sido infructuosos. La naturaleza de su animación permanece sin explicación.",
+    meta:{ amenaza:"EXTREMA", personal:"3+ AGENTES", sitio:"Site-19", recuperacion:"████-██-██" }
   },
   {
-    id:"096",
-    name:"The Shy Guy",
-    class:"euclid",
+    id:"096", name:"The Shy Guy", class:"euclid",
     img:"https://www.patreon.com/media-u/v3/29831612",
     desc:"Humanoide que entra en furia si alguien ve su rostro.",
-    full:"SCP-096 es un humanoide de aproximadamente 2.38 metros, extremadamente delgado y con proporciones exageradas. Permanece en estado pasivo hasta que cualquier individuo, sin importar la distancia o el medio (incluyendo fotografías o videos), visualiza su rostro. En ese momento emite gritos agudos durante 1–2 minutos antes de desplazarse a velocidad imposible hacia el observador. No existe método confiable de detención una vez activado."
+    full:"SCP-096 es un humanoide de aproximadamente 2.38 metros, extremadamente delgado y con proporciones exageradas. Permanece en estado pasivo hasta que cualquier individuo, sin importar la distancia o el medio (incluyendo fotografías o videos), visualiza su rostro. En ese momento emite gritos agudos durante 1–2 minutos antes de desplazarse a velocidad imposible hacia el observador. No existe método confiable de detención una vez activado.",
+    containment:"SCP-096 debe ser mantenido en una celda de acero de 5x5 metros con superficie interna lisa. No puede haber cámaras orientadas hacia el interior. El personal no debe acercarse a menos de 150 metros sin autorización expresa. En caso de brecha, se declara Protocolo Blizzard.",
+    addendum:"Addendum 096-1: Se detectó una fotografía satélite accidental donde aparecía el rostro del objeto en segundo plano. SCP-096 viajó ████ kilómetros antes de ser retenido. Diecisiete agentes fallecieron en el intento de contención. Addendum 096-2: Está prohibida cualquier representación visual, incluso artística, del rostro de SCP-096.",
+    meta:{ amenaza:"ALTA", personal:"2 AGENTES", sitio:"Site-17", recuperacion:"████-██-██" }
   },
   {
-    id:"682",
-    name:"Hard-to-Destroy Reptile",
-    class:"keter",
+    id:"682", name:"Hard-to-Destroy Reptile", class:"keter",
     img:"https://images.steamusercontent.com/ugc/2527157700144063785/E9DDF9BFD463585870E1C6FD70F727FB6D612AE5/?imw=637&imh=358&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true",
     desc:"Reptil de inteligencia alta con capacidad de regeneración extrema.",
-    full:"SCP-682 es una criatura reptiliana de gran tamaño con inteligencia avanzada y un odio aparente hacia toda forma de vida. Posee una capacidad de regeneración extraordinaria y se adapta biológicamente para resistir cualquier daño infligido. Se mantiene sumergido en ácido clorhídrico para limitar su actividad, aunque esto no detiene completamente su regeneración. Todos los intentos de neutralización han fracasado."
+    full:"SCP-682 es una criatura reptiliana de gran tamaño con inteligencia avanzada y un odio aparente hacia toda forma de vida. Posee una capacidad de regeneración extraordinaria y se adapta biológicamente para resistir cualquier daño infligido. Se mantiene sumergido en ácido clorhídrico para limitar su actividad, aunque esto no detiene completamente su regeneración. Todos los intentos de neutralización han fracasado.",
+    containment:"SCP-682 debe ser mantenido en un tanque de ácido clorhídrico de 25,000 litros a concentración del 15%. El tanque debe estar dentro de un recinto de refuerzo cuádruple. En caso de brecha, se activa Protocolo Alfa-Warhead con autorización del Director del Sitio.",
+    addendum:"Addendum 682-A: Se han realizado 43 intentos de neutralización documentados, incluyendo exposición a SCP-076-2, confrontación con SCP-096 y uso de SCP-179 como guía. Todos fallaron. Addendum 682-B: Última comunicación verbal registrada del objeto: 'Todos ustedes son una pestilencia. Prefiero la muerte a su compañía.' Firmado por Investigadora ████.",
+    meta:{ amenaza:"CATASTRÓFICA", personal:"EQUIPO MÓVIL MTF", sitio:"Site-19", recuperacion:"████-██-██" }
   },
   {
-    id:"049",
-    name:"Plague Doctor",
-    class:"euclid",
+    id:"049", name:"Plague Doctor", class:"euclid",
     img:"https://scp-wiki.wikidot.com/local--files/scp-049/SCP-049",
     desc:"Entidad que 'cura' a sus víctimas matándolas y reanimándolas.",
-    full:"SCP-049 es un humanoide que viste ropas de médico de la peste del siglo XVII. Cree fervientemente en la existencia de una 'pestilencia' invisible que afecta a los humanos. Su toque es inmediatamente letal mediante un mecanismo aún no comprendido. Tras matar a una víctima, la reanima como SCP-049-2, un ser sin conciencia que obedece a SCP-049."
+    full:"SCP-049 es un humanoide que viste ropas de médico de la peste del siglo XVII. Cree fervientemente en la existencia de una 'pestilencia' invisible que afecta a los humanos. Su toque es inmediatamente letal mediante un mecanismo aún no comprendido. Tras matar a una víctima, la reanima como SCP-049-2, un ser sin conciencia que obedece a SCP-049.",
+    containment:"SCP-049 debe alojarse en una celda de contención humanoide estándar en el Sector 19-C. El objeto puede ser trasladado bajo escolta de dos agentes si coopera verbalmente. Está prohibido el contacto físico directo sin traje de protección Nivel-IV.",
+    addendum:"Addendum 049-A: El objeto ha mostrado disposición al diálogo. En entrevistas, sostiene que la 'pestilencia' es real y que su método de cura es el único efectivo. Addendum 049-B: Incidente de contención menor el ████-██-██. Tres instancias de SCP-049-2 debieron ser neutralizadas. El objeto expresó 'pesar' por la interrupción del proceso.",
+    meta:{ amenaza:"ALTA", personal:"2 AGENTES", sitio:"Site-19-C", recuperacion:"████-██-██" }
   },
   {
-    id:"106",
-    name:"The Old Man",
-    class:"keter",
+    id:"106", name:"The Old Man", class:"keter",
     img:"https://i.ytimg.com/vi/uFoQvVl1cmo/sddefault.jpg",
     desc:"Entidad que atraviesa superficies sólidas y arrastra víctimas a otra dimensión.",
-    full:"SCP-106 es un humanoide anciano con apariencia de putrefacción avanzada. Puede atravesar superficies sólidas, corroyendo todo lo que toca y dejando marcas oscuras de su paso. Las víctimas son arrastradas a una dimensión conocida como 'el bolsillo' donde son sometidas a tortura. El único método de recall confiable implica la transmisión de voz de una víctima específica."
+    full:"SCP-106 es un humanoide anciano con apariencia de putrefacción avanzada. Puede atravesar superficies sólidas, corroyendo todo lo que toca y dejando marcas oscuras de su paso. Las víctimas son arrastradas a una dimensión conocida como 'el bolsillo' donde son sometidas a tortura. El único método de recall confiable implica la transmisión de voz de una víctima específica.",
+    containment:"SCP-106 debe ser contenido en una cámara de cobre electrolítico puro de doble capa con espacio mínimo de 15 cm entre capas. El sistema de recall de emergencia debe mantenerse operativo en todo momento con una víctima designada disponible.",
+    addendum:"Addendum 106-A: SCP-106 ha demostrado comportamiento preferencial: evita niños menores de 10 años sin razón aparente. Addendum 106-B: Personal desaparecido en brechas anteriores que regresó del 'bolsillo' mostró trauma psicológico severo e incapacidad para describir lo experimentado. Ninguno sobrevivió más de 72 horas tras el regreso.",
+    meta:{ amenaza:"EXTREMA", personal:"MTF ZETA-9", sitio:"Site-06-3", recuperacion:"████-██-██" }
   },
   {
-    id:"939",
-    name:"With Many Voices",
-    class:"keter",
+    id:"939", name:"With Many Voices", class:"keter",
     img:"https://cdna.artstation.com/p/assets/images/images/028/805/636/large/miur-jo-scp-939.jpg?1595556824",
     desc:"Criatura que imita voces humanas para atraer presas.",
-    full:"SCP-939 son criaturas cuadrúpedas sin ojos de aproximadamente 2.2 metros de longitud. Son ciegos pero detectan movimiento y CO₂. Su característica más peligrosa es la capacidad de reproducir con exactitud las voces de sus víctimas anteriores para atraer nuevas presas. Son anámnicos y su piel libera un agente amnésico por contacto."
+    full:"SCP-939 son criaturas cuadrúpedas sin ojos de aproximadamente 2.2 metros de longitud. Son ciegos pero detectan movimiento y CO₂. Su característica más peligrosa es la capacidad de reproducir con exactitud las voces de sus víctimas anteriores para atraer nuevas presas. Son anámnicos y su piel libera un agente amnésico por contacto.",
+    containment:"Las instancias de SCP-939 deben mantenerse en celdas de 10x10 metros con ventilación independiente. El personal debe usar respiradores en todo momento. Se prohíbe el ingreso de personal no esencial. Las grabaciones de audio del entorno están restringidas.",
+    addendum:"Addendum 939-A: Durante incidente ████-A, una instancia comenzó a reproducir conversaciones privadas de investigadores del sitio, incluyendo nombres y datos personales. Se sospecha capacidad de retención de memorias fragmentarias. Addendum 939-B: Experimentos de comunicación mediante texto resultaron en respuestas incoherentes aunque contextualmente relacionadas.",
+    meta:{ amenaza:"ALTA", personal:"3 AGENTES + RESPIRADORES", sitio:"Site-23", recuperacion:"████-██-██" }
   },
   {
-    id:"999",
-    name:"The Tickle Monster",
-    class:"safe",
+    id:"999", name:"The Tickle Monster", class:"safe",
     img:"https://m.media-amazon.com/images/M/MV5BM2VmN2NiOGEtMTM4ZC00NmU2LWE5YTItZDhmODJmYzBkYmFiXkEyXkFqcGc@._V1_.jpg",
-    desc:"Masa gelatinosa naranja que genera sensaciones de felicidad.",
-    full:"SCP-999 es una masa gelatinosa de color naranja con un peso aproximado de 54 kg. Al entrar en contacto con cualquier ser sintiente produce sensaciones inmediatas de euforia, bienestar y alegría. Muestra afecto espontáneo hacia el personal y se comporta de manera juguetona. Considerado uno de los SCPs más benignos, es utilizado en terapia del personal con trauma."
+    desc:"Masa gelatinosa naranja que genera sensaciones de felicidad intensa.",
+    full:"SCP-999 es una masa gelatinosa de color naranja con un peso aproximado de 54 kg. Al entrar en contacto con cualquier ser sintiente produce sensaciones inmediatas de euforia, bienestar y alegría. Muestra afecto espontáneo hacia el personal y se comporta de manera juguetona. Considerado uno de los SCPs más benignos, es utilizado en terapia del personal con trauma.",
+    containment:"SCP-999 no requiere contención activa. Se le provee de una suite de 5x5 metros con juguetes y suministros de caramelos. El acceso del personal está permitido previa solicitud. No deben administrarse sedantes al objeto.",
+    addendum:"Addendum 999-A: SCP-999 ha demostrado capacidad para aliviar síntomas de PTSD severo en personal con historial de exposición a SCPs de clase Keter. Uso terapéutico aprobado por el Consejo O5. Addendum 999-B: Se registró interacción entre SCP-999 y SCP-682. El reptil mostró signos de calma durante 8 minutos antes de retornar a su estado habitual.",
+    meta:{ amenaza:"NULA", personal:"ACCESO LIBRE", sitio:"Site-19", recuperacion:"████-██-██" }
   },
   {
-    id:"3008",
-    name:"The Infinite IKEA",
-    class:"euclid",
+    id:"3008", name:"The Infinite IKEA", class:"euclid",
     img:"https://i.ytimg.com/vi/C6-IrXn4Lpc/maxresdefault.jpg",
-    desc:"Una tienda IKEA de dimensiones infinitas donde humanos han quedado atrapados.",
-    full:"SCP-3008 es un edificio exterior idéntico a una tienda IKEA estándar cuyo interior presenta un espacio aparentemente infinito. Personas que ingresan quedan atrapadas sin poder encontrar la salida. En el interior existen comunidades de supervivientes que han establecido asentamientos. Por las noches aparecen entidades SCP-3008-2, figuras de aspecto humano con rasgos faciales borrosos que atacan a los presentes."
+    desc:"Edificio IKEA con interior de dimensiones infinitas y comunidades atrapadas.",
+    full:"SCP-3008 es un edificio exterior idéntico a una tienda IKEA estándar cuyo interior presenta un espacio aparentemente infinito. Personas que ingresan quedan atrapadas sin poder encontrar la salida. En el interior existen comunidades de supervivientes que han establecido asentamientos. Por las noches aparecen entidades SCP-3008-2, figuras de aspecto humano con rasgos faciales borrosos que atacan a los presentes.",
+    containment:"El perímetro exterior de SCP-3008 debe estar vallado y señalizado. Cuatro agentes deben patrullar el exterior. Está prohibido el acceso sin aprobación del Nivel 4. Expediciones de rescate deben ir equipadas con balizas y no pueden separarse.",
+    addendum:"Addendum 3008-A: Se han enviado seis expediciones de rescate. Cuatro lograron regresar. Se estima que entre 2,000 y 8,000 personas civiles permanecen atrapadas. Addendum 3008-B: Se recibieron señales de radio desde el interior. Una voz masculina identificada como 'Líder del Sector 7' solicitó suministros y afirmó haber 'establecido un sistema de gobierno funcional'.",
+    meta:{ amenaza:"MODERADA", personal:"4 AGENTES EXTERIOR", sitio:"████ ████", recuperacion:"████-██-██" }
   }
 ];
 
-let currentFilter = 'all';
+const badgeClass={safe:'badge-safe',euclid:'badge-euclid',keter:'badge-keter',thaumiel:'badge-thaumiel',apollyon:'badge-apollyon',neutralized:'badge-neutralized'};
+const classOrder={safe:0,euclid:1,keter:2,thaumiel:3,apollyon:4,neutralized:5};
+const classColors={safe:'var(--safe-text)',euclid:'var(--euclid-text)',keter:'var(--keter-text)',thaumiel:'var(--thaumiel-text)',apollyon:'#ccc',neutralized:'var(--neutralized-text)'};
 
-const badgeClass = {
-  safe:'badge-safe',
-  euclid:'badge-euclid',
-  keter:'badge-keter',
-  thaumiel:'badge-thaumiel',
-  apollyon:'badge-apollyon'
-};
+let currentFilter='all', favOnly=false, currentDetailId=null;
+let favorites=JSON.parse(localStorage.getItem('scp-favs')||'[]');
+let history=JSON.parse(localStorage.getItem('scp-history')||'[]');
+let compareList=JSON.parse(sessionStorage.getItem('scp-compare')||'[]');
 
-function renderSCPs(){
-  const query = document.getElementById('searchInput').value.toLowerCase().trim();
-  const container = document.getElementById('scpList');
-  container.innerHTML = '';
+function saveFavs(){localStorage.setItem('scp-favs',JSON.stringify(favorites))}
+function saveHistory(){localStorage.setItem('scp-history',JSON.stringify(history))}
+function saveCompare(){sessionStorage.setItem('scp-compare',JSON.stringify(compareList))}
 
-  const filtered = scps.filter(s => {
-    const matchClass = currentFilter === 'all' || s.class === currentFilter;
-    const matchSearch = !query ||
-      s.id.includes(query) ||
-      s.name.toLowerCase().includes(query) ||
-      s.desc.toLowerCase().includes(query);
-    return matchClass && matchSearch;
-  });
+function addToHistory(id){
+  history=history.filter(h=>h.id!==id);
+  history.unshift({id,time:new Date().toISOString()});
+  if(history.length>20) history=history.slice(0,20);
+  saveHistory();
+  updateHistoryNav();
+}
 
-  document.getElementById('countLabel').textContent = `${filtered.length} de ${scps.length} registros`;
+function updateHistoryNav(){
+  const nav=document.getElementById('nav-history');
+  nav.textContent=`HISTORIAL${history.length>0?' ('+history.length+')':''}`;
+}
 
-  if(filtered.length === 0){
-    container.innerHTML = '<div class="no-results">// SIN RESULTADOS — AJUSTE LOS FILTROS</div>';
-    return;
-  }
+function clearHistory(){
+  if(!confirm('¿Limpiar todo el historial?')) return;
+  history=[];saveHistory();renderHistory();updateHistoryNav();
+}
 
-  filtered.forEach(scp => {
-    const div = document.createElement('div');
-    div.className = 'card';
-    div.innerHTML = `
-      <span class="scp-id">SCP-${scp.id}</span>
-      <img src="${scp.img}" alt="SCP-${scp.id}" loading="lazy" onerror="this.src='https://via.placeholder.com/400x160/0f0f0f/333?text=IMAGEN+NO+DISPONIBLE'">
-      <div class="card-content">
-        <h3>${scp.name}</h3>
-        <p>${scp.desc}</p>
-        <button class="btn-ver" onclick="openModal('${scp.id}')">▶ VER ARCHIVO</button>
-      </div>
-      <span class="scp-class-badge ${badgeClass[scp.class] || ''}">${scp.class.toUpperCase()}</span>
-    `;
+function renderHistory(){
+  const container=document.getElementById('historyList');
+  if(history.length===0){container.innerHTML='<p class="history-empty">// Sin archivos consultados aún.</p>';return;}
+  container.innerHTML='';
+  history.forEach(h=>{
+    const scp=scps.find(s=>s.id===h.id);
+    if(!scp) return;
+    const date=new Date(h.time);
+    const fmt=date.toLocaleDateString('es-AR',{day:'2-digit',month:'2-digit',year:'numeric'})+' '+date.toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'});
+    const div=document.createElement('div');
+    div.className='history-item';
+    div.innerHTML=`<span class="h-id">SCP-${scp.id}</span><span class="h-name">${scp.name}</span><span class="h-time">${fmt}</span><button class="btn-ver" onclick="openDetail('${scp.id}')">▶ ABRIR</button>`;
     container.appendChild(div);
   });
 }
 
-function filterSCPs(){ renderSCPs(); }
+/* COMPARE */
+function toggleCompare(id){
+  if(compareList.includes(id)){
+    compareList=compareList.filter(c=>c!==id);
+  } else {
+    if(compareList.length>=2){alert('Solo se pueden comparar 2 SCPs a la vez.');return false;}
+    compareList.push(id);
+  }
+  saveCompare();updateCompareBar();renderSCPs();return true;
+}
 
-function setFilter(cls, btn){
-  currentFilter = cls;
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
+function toggleCompareFromDetail(){
+  if(!currentDetailId) return;
+  const added=toggleCompare(currentDetailId);
+  document.getElementById('detailCompareBtn').classList.toggle('selected',compareList.includes(currentDetailId));
+}
+
+function updateCompareBar(){
+  const bar=document.getElementById('compare-bar');
+  const label=document.getElementById('compareBarLabel');
+  bar.classList.toggle('show',compareList.length>0);
+  label.textContent=compareList.length===1?`1 SCP seleccionado — seleccioná otro para comparar`:`${compareList.length} SCPs seleccionados`;
+  document.getElementById('compare-bar').querySelector('button:not(.btn-clear-compare)').disabled=compareList.length<2;
+}
+
+function clearCompare(){compareList=[];saveCompare();updateCompareBar();renderSCPs();if(currentDetailId) document.getElementById('detailCompareBtn').classList.remove('selected');}
+
+function openCompareView(){
+  if(compareList.length<2){alert('Seleccioná 2 SCPs para comparar.');return;}
+  hideAll();
+  document.getElementById('compare-view').style.display='block';
+  renderCompareView();
+}
+
+function closeCompareView(){
+  document.getElementById('compare-view').style.display='none';
+  document.getElementById('scp').classList.add('active');
+  document.querySelectorAll('nav a').forEach(a=>a.classList.remove('active'));
+  document.getElementById('nav-scp').classList.add('active');
+}
+
+function renderCompareView(){
+  const grid=document.getElementById('compareGrid');
+  grid.innerHTML='';
+  compareList.forEach(id=>{
+    const scp=scps.find(s=>s.id===id);
+    if(!scp) return;
+    const col=document.createElement('div');
+    col.className='compare-col';
+    col.innerHTML=`
+      <div class="compare-col-header">
+        <div class="cmp-id">SCP-${scp.id}</div>
+        <h3>${scp.name}</h3>
+      </div>
+      <img src="${scp.img}" alt="" loading="lazy" onerror="this.style.display='none'">
+      <div class="compare-col-body">
+        <div class="cmp-row"><span class="cmp-label">CLASE</span><span class="cmp-val" style="color:${classColors[scp.class]||'#fff'}">${scp.class.toUpperCase()}</span></div>
+        <div class="cmp-row"><span class="cmp-label">NIVEL DE AMENAZA</span><span class="cmp-val">${scp.meta.amenaza}</span></div>
+        <div class="cmp-row"><span class="cmp-label">SITIO</span><span class="cmp-val">${scp.meta.sitio}</span></div>
+        <div class="cmp-row"><span class="cmp-label">PERSONAL REQUERIDO</span><span class="cmp-val">${scp.meta.personal}</span></div>
+        <div class="cmp-row"><span class="cmp-label">DESCRIPCIÓN</span><span class="cmp-val">${scp.desc}</span></div>
+      </div>`;
+    grid.appendChild(col);
+  });
+}
+
+/* DETAIL */
+function openDetail(id){
+  const scp=scps.find(s=>s.id===id);
+  if(!scp) return;
+  currentDetailId=id;
+  addToHistory(id);
+  hideAll();
+  document.getElementById('detail').style.display='block';
+  document.getElementById('detailId').textContent=`ARCHIVO SCP-${scp.id} — NIVEL DE ACCESO 3`;
+  document.getElementById('detailName').textContent=scp.name;
+  document.getElementById('detailImg').src=scp.img;
+  document.getElementById('detailContainment').textContent=scp.containment;
+  document.getElementById('detailDesc').textContent=scp.full;
+  document.getElementById('detailAddendum').textContent=scp.addendum;
+  const badge=document.getElementById('detailClassBadge');
+  badge.textContent=scp.class.toUpperCase();
+  badge.className='doc-class';
+  badge.style.cssText=`display:inline-block;margin-top:10px;font-size:.75rem;padding:3px 12px;letter-spacing:.15em;font-family:var(--head);color:${classColors[scp.class]||'#fff'};border:1px solid ${classColors[scp.class]||'#fff'}`;
+  const meta=document.getElementById('detailMeta');
+  meta.innerHTML=Object.entries(scp.meta).map(([k,v])=>`<div class="meta-item"><div class="meta-label">${k.replace('_',' ')}</div><div class="meta-val">${v}</div></div>`).join('');
+  const favBtn=document.getElementById('detailFavBtn');
+  favBtn.classList.toggle('active',favorites.includes(id));
+  document.getElementById('detailCompareBtn').classList.toggle('selected',compareList.includes(id));
+  window.scrollTo(0,0);
+}
+
+function closeDetail(){
+  document.getElementById('detail').style.display='none';
+  currentDetailId=null;
+  document.getElementById('scp').classList.add('active');
+  document.querySelectorAll('nav a').forEach(a=>a.classList.remove('active'));
+  document.getElementById('nav-scp').classList.add('active');
+}
+
+function toggleFavFromDetail(){
+  if(!currentDetailId) return;
+  if(favorites.includes(currentDetailId)){
+    favorites=favorites.filter(f=>f!==currentDetailId);
+  } else {
+    favorites.push(currentDetailId);
+  }
+  saveFavs();
+  document.getElementById('detailFavBtn').classList.toggle('active',favorites.includes(currentDetailId));
   renderSCPs();
 }
 
-function openModal(id){
-  const scp = scps.find(s => s.id === id);
-  document.getElementById('modalTitle').textContent = `SCP-${scp.id} — ${scp.name}`;
-  document.getElementById('modalText').textContent = scp.full;
-  document.getElementById('modalImg').src = scp.img;
-  document.getElementById('modal').classList.add('active');
+/* CARDS */
+function renderSCPs(){
+  const query=document.getElementById('searchInput').value.toLowerCase().trim();
+  const container=document.getElementById('scpList');
+  container.innerHTML='';
+  let filtered=scps.filter(s=>{
+    const mc=currentFilter==='all'||s.class===currentFilter;
+    const ms=!query||s.id.includes(query)||s.name.toLowerCase().includes(query)||s.desc.toLowerCase().includes(query);
+    const mf=!favOnly||favorites.includes(s.id);
+    return mc&&ms&&mf;
+  });
+  const sort=document.getElementById('sortSelect').value;
+  filtered=[...filtered].sort((a,b)=>{
+    if(sort==='num-asc') return parseInt(a.id)-parseInt(b.id);
+    if(sort==='num-desc') return parseInt(b.id)-parseInt(a.id);
+    if(sort==='name-asc') return a.name.localeCompare(b.name);
+    if(sort==='name-desc') return b.name.localeCompare(a.name);
+    if(sort==='class') return (classOrder[a.class]||9)-(classOrder[b.class]||9);
+    return 0;
+  });
+  document.getElementById('countLabel').textContent=`${filtered.length} de ${scps.length} registros`;
+  if(filtered.length===0){container.innerHTML='<div class="no-results">// SIN RESULTADOS</div>';return;}
+  filtered.forEach(scp=>{
+    const isFav=favorites.includes(scp.id);
+    const isCompare=compareList.includes(scp.id);
+    const isVisited=history.some(h=>h.id===scp.id);
+    const div=document.createElement('div');
+    div.className='card';
+    div.innerHTML=`
+      <span class="scp-id">SCP-${scp.id}</span>
+      <span class="visited-dot ${isVisited?'show':''}" title="Archivo consultado"></span>
+      <img src="${scp.img}" alt="SCP-${scp.id}" loading="lazy" onerror="this.style.display='none'">
+      <div class="card-content">
+        <h3>${scp.name}</h3>
+        <p>${scp.desc}</p>
+        <div class="card-actions">
+          <button class="btn-ver" onclick="openDetail('${scp.id}')">▶ ABRIR ARCHIVO</button>
+          <button class="btn-fav ${isFav?'active':''}" onclick="toggleFav('${scp.id}',this)" aria-label="Favorito">⭐</button>
+          <button class="btn-compare ${isCompare?'selected':''}" onclick="toggleCompare('${scp.id}');renderSCPs()" title="Comparar">⚖</button>
+        </div>
+      </div>
+      <span class="scp-class-badge ${badgeClass[scp.class]||''}">${scp.class.toUpperCase()}</span>`;
+    container.appendChild(div);
+  });
 }
 
-function closeModal(){
-  document.getElementById('modal').classList.remove('active');
+function toggleFav(id,btn){
+  if(favorites.includes(id)){favorites=favorites.filter(f=>f!==id);btn.classList.remove('active');}
+  else{favorites.push(id);btn.classList.add('active');}
+  saveFavs();
+  if(favOnly) renderSCPs();
 }
 
-function handleModalClick(e){
-  if(e.target === document.getElementById('modal')) closeModal();
+function setFilter(cls,btn){
+  currentFilter=cls;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  if(favOnly) document.getElementById('btnFavs').classList.add('active');
+  renderSCPs();
 }
 
-document.addEventListener('keydown', e => {
-  if(e.key === 'Escape') closeModal();
-});
+function toggleFavFilter(btn){
+  favOnly=!favOnly;btn.classList.toggle('active',favOnly);renderSCPs();
+}
 
-function showSection(id, el){
-  document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+/* NAV */
+function hideAll(){
+  document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
+  document.getElementById('detail').style.display='none';
+  document.getElementById('compare-view').style.display='none';
+}
+
+function showSection(id,el){
+  hideAll();
   document.getElementById(id).classList.add('active');
-  document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+  document.querySelectorAll('nav a').forEach(a=>a.classList.remove('active'));
   if(el) el.classList.add('active');
+  if(id==='history') renderHistory();
+  if(id==='scp') renderSCPs();
 }
 
+/* MODAL (quick) */
+function closeModal(){document.getElementById('modal').classList.remove('active')}
+function handleModalClick(e){if(e.target===document.getElementById('modal')) closeModal()}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal();if(document.getElementById('detail').style.display==='block') closeDetail();}});
+
+/* INIT */
+updateCompareBar();
+updateHistoryNav();
 renderSCPs();
 </script>
 </body>

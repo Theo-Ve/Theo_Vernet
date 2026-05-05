@@ -4,267 +4,514 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fundación SCP</title>
-
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    :root{--bg:#0b0b0b;--card:#161616;--accent:#c62828;--text:#e6e6e6;--muted:#9e9e9e}
-    *{box-sizing:border-box}
-    body{margin:0;font-family:Arial;background:var(--bg);color:var(--text)}
+    :root{
+      --bg:#080808;
+      --card:#0f0f0f;
+      --card2:#141414;
+      --accent:#c62828;
+      --accent2:#e53935;
+      --text:#e0e0e0;
+      --muted:#666;
+      --border:#1e1e1e;
+      --mono:'Share Tech Mono', monospace;
+      --head:'Oswald', sans-serif;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:var(--mono);background:var(--bg);color:var(--text);min-height:100vh}
 
-    header{text-align:center;padding:40px;background:#0f0f0f;border-bottom:1px solid #222}
+    header{
+      text-align:center;
+      padding:36px 20px 28px;
+      background:#0a0a0a;
+      border-bottom:2px solid var(--accent);
+      position:relative;
+      overflow:hidden;
+    }
+    header::before{
+      content:'';
+      position:absolute;
+      inset:0;
+      background:repeating-linear-gradient(0deg,transparent,transparent 30px,rgba(198,40,40,.03) 30px,rgba(198,40,40,.03) 31px);
+      pointer-events:none;
+    }
+    header h1{
+      font-family:var(--head);
+      font-size:clamp(2rem,6vw,3.5rem);
+      font-weight:700;
+      letter-spacing:.2em;
+      color:#fff;
+      text-shadow:0 0 30px rgba(198,40,40,.4);
+    }
+    header p{
+      color:var(--muted);
+      letter-spacing:.3em;
+      font-size:.75rem;
+      margin-top:6px;
+    }
+    .clearance{
+      display:inline-block;
+      margin-top:10px;
+      font-size:.65rem;
+      color:var(--accent);
+      border:1px solid var(--accent);
+      padding:2px 10px;
+      letter-spacing:.15em;
+    }
 
-    nav{display:flex;justify-content:center;gap:20px;background:#151515;padding:12px}
-    nav a{cursor:pointer;color:var(--muted)}
+    nav{
+      display:flex;
+      justify-content:center;
+      gap:0;
+      background:#0c0c0c;
+      border-bottom:1px solid var(--border);
+    }
+    nav a{
+      cursor:pointer;
+      color:var(--muted);
+      padding:14px 28px;
+      font-family:var(--head);
+      font-size:.85rem;
+      letter-spacing:.15em;
+      border-bottom:2px solid transparent;
+      transition:all .2s;
+      text-transform:uppercase;
+    }
     nav a:hover{color:#fff}
+    nav a.active{color:var(--accent2);border-bottom-color:var(--accent2)}
 
-    section{display:none;padding:25px;max-width:1000px;margin:auto}
+    section{display:none;padding:30px 20px;max-width:1100px;margin:auto;animation:fadeIn .3s ease}
     section.active{display:block}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px}
+    .home-intro{border-left:3px solid var(--accent);padding-left:18px;margin-bottom:20px}
+    .home-intro h2{font-family:var(--head);font-size:1.6rem;letter-spacing:.1em;color:#fff;margin-bottom:12px}
+    .home-intro p{color:#aaa;line-height:1.8;margin-bottom:12px;font-size:.88rem}
+    .redacted{background:var(--accent);color:var(--accent);padding:0 4px;border-radius:2px;user-select:none}
 
-    .card{background:var(--card);border-radius:10px;overflow:hidden;border:1px solid #222}
-    .card img{width:100%;height:160px;object-fit:cover}
-    .card-content{padding:12px}
+    .filters{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-bottom:22px;
+      align-items:center;
+    }
+    .search-box{
+      flex:1;
+      min-width:180px;
+      background:#111;
+      border:1px solid #2a2a2a;
+      color:var(--text);
+      padding:9px 14px;
+      font-family:var(--mono);
+      font-size:.82rem;
+      outline:none;
+      transition:border .2s;
+    }
+    .search-box:focus{border-color:var(--accent)}
+    .search-box::placeholder{color:#444}
+    .filter-btn{
+      background:#111;
+      color:var(--muted);
+      border:1px solid #222;
+      padding:8px 14px;
+      font-family:var(--mono);
+      font-size:.75rem;
+      cursor:pointer;
+      letter-spacing:.1em;
+      transition:all .2s;
+    }
+    .filter-btn:hover{border-color:#444;color:#ccc}
+    .filter-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
 
-    button{background:var(--accent);color:#fff;border:none;padding:7px 10px;margin-top:8px;cursor:pointer}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
 
-    footer{text-align:center;padding:15px;background:#111}
+    .card{
+      background:var(--card);
+      border:1px solid var(--border);
+      overflow:hidden;
+      position:relative;
+      transition:border-color .2s,transform .2s;
+    }
+    .card:hover{border-color:#333;transform:translateY(-2px)}
+    .card img{
+      width:100%;
+      height:160px;
+      object-fit:cover;
+      display:block;
+      filter:grayscale(20%);
+    }
+    .card-content{padding:14px}
+    .card-content h3{
+      font-family:var(--head);
+      font-size:1rem;
+      letter-spacing:.08em;
+      color:#fff;
+      margin-bottom:6px;
+    }
+    .card-content p{color:#888;font-size:.78rem;line-height:1.5;margin-bottom:10px}
+    .scp-id{
+      position:absolute;
+      top:8px;left:8px;
+      background:rgba(0,0,0,.8);
+      border:1px solid var(--accent);
+      color:var(--accent);
+      font-size:.65rem;
+      padding:2px 7px;
+      letter-spacing:.12em;
+    }
+    .scp-class-badge{
+      position:absolute;
+      bottom:8px;right:8px;
+      font-size:.6rem;
+      padding:2px 7px;
+      letter-spacing:.1em;
+      text-transform:uppercase;
+      font-family:var(--head);
+    }
+    .badge-safe{background:rgba(46,125,50,.9);color:#a5d6a7}
+    .badge-euclid{background:rgba(230,126,34,.15);color:#f39c12;border:1px solid #f39c12}
+    .badge-keter{background:rgba(198,40,40,.2);color:#ef9a9a;border:1px solid var(--accent)}
+    .badge-thaumiel{background:rgba(74,20,140,.3);color:#ce93d8;border:1px solid #9c27b0}
+    .badge-apollyon{background:rgba(0,0,0,.8);color:#fff;border:1px solid #fff}
 
-    .modal{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center}
+    .btn-ver{
+      background:transparent;
+      color:var(--accent);
+      border:1px solid var(--accent);
+      padding:5px 12px;
+      font-family:var(--mono);
+      font-size:.72rem;
+      cursor:pointer;
+      letter-spacing:.1em;
+      transition:all .2s;
+    }
+    .btn-ver:hover{background:var(--accent);color:#fff}
+
+    .no-results{
+      grid-column:1/-1;
+      text-align:center;
+      padding:40px;
+      color:var(--muted);
+      font-size:.85rem;
+    }
+
+    .class-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+    .class-card{
+      background:var(--card);
+      border:1px solid var(--border);
+      padding:20px;
+      display:flex;
+      gap:16px;
+      align-items:flex-start;
+      transition:border-color .2s;
+    }
+    .class-card:hover{border-color:#333}
+    .class-card h3{font-family:var(--head);font-size:1.1rem;letter-spacing:.1em;color:#fff;margin-bottom:6px}
+    .class-card p{color:#888;font-size:.8rem;line-height:1.6}
+
+    .modal{
+      position:fixed;inset:0;
+      background:rgba(0,0,0,.9);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      z-index:999;
+      padding:20px;
+      backdrop-filter:blur(4px);
+    }
     .modal.active{display:flex}
-    .modal-box{background:#121212;padding:20px;border-radius:10px;max-width:600px}
-    .class-content{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:15px;
-}
+    .modal-box{
+      background:#0e0e0e;
+      border:1px solid var(--accent);
+      max-width:620px;
+      width:100%;
+      position:relative;
+      animation:slideUp .25s ease;
+    }
+    @keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+    .modal-header{
+      background:#0a0a0a;
+      border-bottom:1px solid #1a1a1a;
+      padding:14px 20px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    .modal-header h3{font-family:var(--head);color:#fff;letter-spacing:.1em;font-size:1.1rem}
+    .modal-close{
+      background:none;border:none;color:var(--muted);
+      font-size:1.2rem;cursor:pointer;padding:4px 8px;
+      transition:color .2s;line-height:1;
+    }
+    .modal-close:hover{color:var(--accent)}
+    .modal-body{padding:20px}
+    .modal-body img{width:100%;height:200px;object-fit:cover;margin-bottom:16px;display:block;filter:grayscale(20%)}
+    .modal-label{
+      font-size:.65rem;
+      color:var(--accent);
+      letter-spacing:.2em;
+      margin-bottom:4px;
+    }
+    .modal-body p{color:#aaa;font-size:.85rem;line-height:1.8}
 
-.class-content img{
-  width:50px;
-  height:50px;
-  object-fit:contain;
-}
-.scp-card{
-  position:relative;
-}
-
-.scp-class-icon{
-  position:absolute;
-  bottom:10px;
-  right:10px;
-  width:50px;
-  height:50px;
-  overflow:hidden;
-  border-radius:6px;
-}
-
-.scp-class-icon img{
-  width:50px;
-  height:auto;
-  position:absolute;
-  top:0px;
-  left:0px;
-}
+    footer{text-align:center;padding:18px;background:#0a0a0a;border-top:1px solid var(--border);color:var(--muted);font-size:.7rem;letter-spacing:.15em;margin-top:40px}
   </style>
 </head>
 <body>
 
 <header>
-  <h1>Fundación SCP</h1>
-  <p>Seguridad • Contención • Protección</p>
+  <h1>FUNDACIÓN SCP</h1>
+  <p>SEGURIDAD • CONTENCIÓN • PROTECCIÓN</p>
+  <span class="clearance">NIVEL DE ACCESO: 3 — AUTORIZADO</span>
 </header>
 
 <nav>
-  <a onclick="showSection('home')">Inicio</a>
-  <a onclick="showSection('scp')">SCPs</a>
-  <a onclick="showSection('clases')">Clases</a>
+  <a onclick="showSection('home',this)" class="active">INICIO</a>
+  <a onclick="showSection('scp',this)">BASE DE DATOS</a>
+  <a onclick="showSection('clases',this)">CLASIFICACIÓN</a>
 </nav>
 
 <section id="home" class="active">
-  <h2>¿Qué es SCP?</h2>
-
-  <p>
-    SCP (Secure, Contain, Protect — Asegurar, Contener, Proteger) es un proyecto de ficción colaborativa en internet
-    que presenta un universo donde existe una organización secreta encargada de contener fenómenos que desafían las leyes de la realidad.
-  </p>
-
-  <p>
-    La Fundación SCP opera a nivel global y fuera del control de cualquier gobierno. Su misión es localizar, capturar y mantener bajo control
-    objetos, entidades o eventos anómalos para evitar que la humanidad entre en pánico o que estas anomalías causen un desastre a gran escala.
-  </p>
-
-  <p>
-    Un “SCP” puede ser cualquier cosa: desde criaturas peligrosas, objetos aparentemente normales con propiedades extrañas,
-    hasta lugares o conceptos que rompen la lógica del mundo conocido.
-  </p>
-
-  <p>
-    Cada anomalía es documentada en archivos con formato científico que incluyen su clasificación, métodos de contención
-    y descripción detallada. Estos documentos están escritos como si fueran informes reales filtrados, lo que le da al proyecto
-    un estilo muy inmersivo y realista.
-  </p>
-
-  <p>
-    El universo SCP mezcla elementos de horror, ciencia ficción y misterio, creando historias que van desde lo aterrador
-    hasta lo filosófico. No existe una única historia principal, sino una red de relatos conectados que construyen un mundo complejo
-    donde la realidad no es lo que parece.
-  </p>
-
+  <div class="home-intro">
+    <h2>¿QUÉ ES SCP?</h2>
+    <p>SCP (Secure, Contain, Protect — Asegurar, Contener, Proteger) es un proyecto de ficción colaborativa en internet que presenta un universo donde existe una organización secreta encargada de contener fenómenos que desafían las leyes de la realidad.</p>
+    <p>La Fundación SCP opera a nivel global y fuera del control de cualquier gobierno. Su misión es localizar, capturar y mantener bajo control objetos, entidades o eventos anómalos para evitar que la humanidad entre en pánico o que estas anomalías causen un desastre a gran escala.</p>
+    <p>Un "SCP" puede ser cualquier cosa: desde criaturas peligrosas, objetos aparentemente normales con propiedades extrañas, hasta lugares o conceptos que rompen la lógica del mundo conocido. Algunos registros han sido <span class="redacted">████████████</span> por motivos de seguridad.</p>
+    <p>Cada anomalía es documentada con formato científico incluyendo su clasificación, métodos de contención y descripción detallada. Estos documentos están escritos como si fueran informes reales filtrados, lo que le da al proyecto un estilo muy inmersivo y realista.</p>
+    <p>El universo SCP mezcla elementos de horror, ciencia ficción y misterio, creando historias que van desde lo aterrador hasta lo filosófico. No existe una única historia principal, sino una red de relatos conectados que construyen un mundo complejo donde la realidad no es lo que parece.</p>
+  </div>
 </section>
 
 <section id="clases">
-  <h2>Clasificación de Objetos SCP</h2>
-
-  <div class="grid">
-
-    <div class="card class-card">
-      <div class="card-content class-content">
-        <div>
-          <h3>Safe</h3>
-          <p>Fáciles de contener y comportamiento predecible.</p>
-        </div>
-        <img src="https://i.redd.it/us3g77eneief1.jpeg">
+  <h2 style="font-family:var(--head);letter-spacing:.15em;color:#fff;margin-bottom:20px;font-size:1.4rem;border-bottom:1px solid #1a1a1a;padding-bottom:12px">CLASIFICACIÓN DE OBJETOS</h2>
+  <div class="class-grid">
+    <div class="class-card">
+      <div>
+        <h3>SAFE</h3>
+        <p>Fáciles de contener y comportamiento predecible. El procedimiento de contención es bien comprendido y no requiere recursos significativos.</p>
       </div>
     </div>
-
-    <div class="card class-card">
-      <div class="card-content class-content">
-        <div>
-          <h3>Euclid</h3>
-          <p>Impredecibles o no completamente comprendidos.</p>
-        </div>
-        <img src="https://preview.redd.it/safe-euclid-keter-icons-v0-wln8qpye843c1.png?width=442&format=png&auto=webp&s=b9316acd952edc2ec8574b785d8cb96ff20f5af7">
+    <div class="class-card">
+      <div>
+        <h3>EUCLID</h3>
+        <p>Impredecibles o no completamente comprendidos. Requieren recursos más específicos o su comportamiento no puede garantizarse bajo contención.</p>
       </div>
     </div>
-
-    <div class="card class-card">
-      <div class="card-content class-content">
-        <div>
-          <h3>Keter</h3>
-          <p>Extremadamente peligrosos o difíciles de contener.</p>
-        </div>
-        <img src="https://preview.redd.it/safe-euclid-keter-icons-v0-bk4m6sye843c1.png?width=442&format=png&auto=webp&s=ab5e021aed171d4f2170fff47bac21d191797246">
+    <div class="class-card">
+      <div>
+        <h3>KETER</h3>
+        <p>Extremadamente peligrosos o difíciles de contener. La Fundación aún no ha desarrollado un método confiable de contención o requiere recursos masivos.</p>
       </div>
     </div>
-
-    <div class="card class-card">
-      <div class="card-content class-content">
-        <div>
-          <h3>Thaumiel</h3>
-          <p>Usados para contener otros SCPs.</p>
-        </div>
-        <img src="https://preview.redd.it/thaumiel-class-identification-square-which-looks-better-v0-lrjld2k9tvrc1.jpg?width=1080&crop=smart&auto=webp&s=0f3e50110930cc0c1d3184264f47d2ff31548e1c">
+    <div class="class-card">
+      <div>
+        <h3>THAUMIEL</h3>
+        <p>Anomalías utilizadas por la Fundación para contener otros SCPs. Su existencia es conocida solo por el personal de más alto nivel.</p>
       </div>
     </div>
-
-    <div class="card class-card">
-      <div class="card-content class-content">
-        <div>
-          <h3>Apollyon</h3>
-          <p>No pueden ser contenidos y representan amenazas globales.</p>
-        </div>
-        <img src="https://orig00.deviantart.net/de46/f/2018/112/4/b/scp_class_apollyon_by_calicostonewolf-dc9jnqv.png">
+    <div class="class-card">
+      <div>
+        <h3>APOLLYON</h3>
+        <p>No pueden ser contenidos y representan amenazas de extinción global. Actualmente ningún protocolo puede detener su influencia.</p>
       </div>
     </div>
-
+    <div class="class-card">
+      <div>
+        <h3>NEUTRALIZED</h3>
+        <p>Anomalías que han sido destruidas o han perdido sus propiedades anómalas, ya sea intencionalmente o por accidente.</p>
+      </div>
+    </div>
   </div>
 </section>
 
 <section id="scp">
-  <h2>Base de Datos SCP</h2>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:10px">
+    <h2 style="font-family:var(--head);letter-spacing:.15em;color:#fff;font-size:1.4rem">BASE DE DATOS SCP</h2>
+    <span id="countLabel" style="color:var(--muted);font-size:.75rem"></span>
+  </div>
+
+  <div class="filters">
+    <input class="search-box" type="text" id="searchInput" placeholder="Buscar SCP..." oninput="filterSCPs()">
+    <button class="filter-btn active" onclick="setFilter('all',this)">TODOS</button>
+    <button class="filter-btn" onclick="setFilter('safe',this)">SAFE</button>
+    <button class="filter-btn" onclick="setFilter('euclid',this)">EUCLID</button>
+    <button class="filter-btn" onclick="setFilter('keter',this)">KETER</button>
+  </div>
+
   <div class="grid" id="scpList"></div>
 </section>
 
-<div class="modal" id="modal">
-  <div class="modal-box">
-    <h3 id="modalTitle"></h3>
-    <p id="modalText"></p>
-    <button onclick="closeModal()">Cerrar</button>
+<div class="modal" id="modal" onclick="handleModalClick(event)">
+  <div class="modal-box" id="modalBox">
+    <div class="modal-header">
+      <h3 id="modalTitle"></h3>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <img id="modalImg" src="" alt="">
+      <div class="modal-label">DESCRIPCIÓN COMPLETA — NIVEL 3</div>
+      <p id="modalText"></p>
+    </div>
   </div>
 </div>
 
-<script>
+<footer>FUNDACIÓN SCP — TODOS LOS DATOS SON PROPIEDAD CLASIFICADA</footer>
 
+<script>
 const scps = [
   {
-    id:173,
+    id:"173",
     name:"The Sculpture",
     class:"euclid",
     img:"https://static.wikia.nocookie.net/scpcontainmentbreach/images/b/b9/SCP-173.jpg/revision/latest?cb=20130615021702&path-prefix=es",
-    desc:"Escultura que se mueve cuando no es observada.",
-    full:"SCP-173 es una escultura animada hecha de hormigón. Permanece inmóvil bajo observación directa, pero se mueve a gran velocidad cuando no es vista. Ataca rompiendo el cuello. Requiere vigilancia constante con múltiples observadores."
+    desc:"Escultura que se mueve cuando no es observada directamente.",
+    full:"SCP-173 es una escultura animada construida de hormigón y barras de acero. Permanece completamente inmóvil bajo observación directa, pero se desplaza a velocidades extremas cuando el contacto visual se interrumpe incluso por un instante. Ataca a sus víctimas rompiendo el cuello o estrangulándolas. Los protocolos exigen al menos tres observadores en todo momento durante las entradas a la cámara."
   },
   {
-    id:096,
-    name:"Shy Guy",
+    id:"096",
+    name:"The Shy Guy",
     class:"euclid",
-    img:"https://www.patreon.com/media-u/v3/29831612",
-    desc:"Humanoide que reacciona si ven su cara.",
-    full:"SCP-096 entra en estado de furia si alguien ve su rostro. Luego rastrea al observador sin importar la distancia y lo elimina. No existe forma confiable de detenerlo."
+    img:"https://static.wikia.nocookie.net/scpcontainmentbreach/images/3/37/SCP-096.jpg/revision/latest?cb=20140616024804",
+    desc:"Humanoide que entra en furia si alguien ve su rostro.",
+    full:"SCP-096 es un humanoide de aproximadamente 2.38 metros, extremadamente delgado y con proporciones exageradas. Permanece en estado pasivo hasta que cualquier individuo, sin importar la distancia o el medio (incluyendo fotografías o videos), visualiza su rostro. En ese momento emite gritos agudos durante 1–2 minutos antes de desplazarse a velocidad imposible hacia el observador. No existe método confiable de detención una vez activado."
   },
   {
-    id:682,
+    id:"682",
     name:"Hard-to-Destroy Reptile",
     class:"keter",
     img:"https://images.steamusercontent.com/ugc/2527157700144063785/E9DDF9BFD463585870E1C6FD70F727FB6D612AE5/?imw=637&imh=358&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true",
-    desc:"Criatura extremadamente resistente.",
-    full:"SCP-682 es una entidad reptiliana con gran inteligencia y odio hacia la vida. Posee regeneración extrema y se adapta a cualquier daño. Se mantiene en ácido para limitar su actividad."
+    desc:"Reptil de inteligencia alta con capacidad de regeneración extrema.",
+    full:"SCP-682 es una criatura reptiliana de gran tamaño con inteligencia avanzada y un odio aparente hacia toda forma de vida. Posee una capacidad de regeneración extraordinaria y se adapta biológicamente para resistir cualquier daño infligido. Se mantiene sumergido en ácido clorhídrico para limitar su actividad, aunque esto no detiene completamente su regeneración. Todos los intentos de neutralización han fracasado."
   },
   {
-    id:049,
+    id:"049",
     name:"Plague Doctor",
     class:"euclid",
     img:"https://scp-wiki.wikidot.com/local--files/scp-049/SCP-049",
-    desc:"Entidad que 'cura' una plaga.",
-    full:"SCP-049 es un humanoide que cree en una plaga invisible. Puede matar con el tacto y luego reanimar a sus víctimas como entidades obedientes sin conciencia."
+    desc:"Entidad que 'cura' a sus víctimas matándolas y reanimándolas.",
+    full:"SCP-049 es un humanoide que viste ropas de médico de la peste del siglo XVII. Cree fervientemente en la existencia de una 'pestilencia' invisible que afecta a los humanos. Su toque es inmediatamente letal mediante un mecanismo aún no comprendido. Tras matar a una víctima, la reanima como SCP-049-2, un ser sin conciencia que obedece a SCP-049."
+  },
+  {
+    id:"106",
+    name:"The Old Man",
+    class:"keter",
+    img:"https://static.wikia.nocookie.net/scpcontainmentbreach/images/9/9b/SCP-106.jpg/revision/latest?cb=20130615021706&path-prefix=es",
+    desc:"Entidad que atraviesa superficies sólidas y arrastra víctimas a otra dimensión.",
+    full:"SCP-106 es un humanoide anciano con apariencia de putrefacción avanzada. Puede atravesar superficies sólidas, corroyendo todo lo que toca y dejando marcas oscuras de su paso. Las víctimas son arrastradas a una dimensión conocida como 'el bolsillo' donde son sometidas a tortura. El único método de recall confiable implica la transmisión de voz de una víctima específica."
+  },
+  {
+    id:"939",
+    name:"With Many Voices",
+    class:"keter",
+    img:"https://static.wikia.nocookie.net/scpcontainmentbreach/images/9/94/SCP-939.jpg/revision/latest?cb=20130825015604&path-prefix=es",
+    desc:"Criatura que imita voces humanas para atraer presas.",
+    full:"SCP-939 son criaturas cuadrúpedas sin ojos de aproximadamente 2.2 metros de longitud. Son ciegos pero detectan movimiento y CO₂. Su característica más peligrosa es la capacidad de reproducir con exactitud las voces de sus víctimas anteriores para atraer nuevas presas. Son anámnicos y su piel libera un agente amnésico por contacto."
+  },
+  {
+    id:"999",
+    name:"The Tickle Monster",
+    class:"safe",
+    img:"https://scp-wiki.wikidot.com/local--files/scp-999/scp999.jpg",
+    desc:"Masa gelatinosa naranja que genera sensaciones de felicidad.",
+    full:"SCP-999 es una masa gelatinosa de color naranja con un peso aproximado de 54 kg. Al entrar en contacto con cualquier ser sintiente produce sensaciones inmediatas de euforia, bienestar y alegría. Muestra afecto espontáneo hacia el personal y se comporta de manera juguetona. Considerado uno de los SCPs más benignos, es utilizado en terapia del personal con trauma."
+  },
+  {
+    id:"3008",
+    name:"The Infinite IKEA",
+    class:"euclid",
+    img:"https://scp-wiki.wikidot.com/local--files/scp-3008/HJHedit.jpg",
+    desc:"Una tienda IKEA de dimensiones infinitas donde humanos han quedado atrapados.",
+    full:"SCP-3008 es un edificio exterior idéntico a una tienda IKEA estándar cuyo interior presenta un espacio aparentemente infinito. Personas que ingresan quedan atrapadas sin poder encontrar la salida. En el interior existen comunidades de supervivientes que han establecido asentamientos. Por las noches aparecen entidades SCP-3008-2, figuras de aspecto humano con rasgos faciales borrosos que atacan a los presentes."
   }
 ];
 
-const classIcons = {
-  euclid: "https://preview.redd.it/safe-euclid-keter-icons-v0-wln8qpye843c1.png?width=442&format=png&auto=webp&s=b9316acd952edc2ec8574b785d8cb96ff20f5af7",
-  keter: "https://preview.redd.it/safe-euclid-keter-icons-v0-bk4m6sye843c1.png?width=442&format=png&auto=webp&s=ab5e021aed171d4f2170fff47bac21d191797246"
+let currentFilter = 'all';
+
+const badgeClass = {
+  safe:'badge-safe',
+  euclid:'badge-euclid',
+  keter:'badge-keter',
+  thaumiel:'badge-thaumiel',
+  apollyon:'badge-apollyon'
 };
 
 function renderSCPs(){
-  const container = document.getElementById("scpList");
-  container.innerHTML = "";
+  const query = document.getElementById('searchInput').value.toLowerCase().trim();
+  const container = document.getElementById('scpList');
+  container.innerHTML = '';
 
-  scps.forEach(scp => {
-    container.innerHTML += `
-        <div class="card scp-card">
-            <img src="${scp.img}">
-            <div class="card-content">
-                <h3>SCP-${scp.id} (${scp.name})</h3>
-                <p>${scp.desc}</p>
-                <button onclick="openModal(${scp.id})">Ver</button>
-            </div>
-                <div class="scp-class-icon">
-                    <img src="${classIcons[scp.class]}">
-                </div>
-            </div>
-        `;
+  const filtered = scps.filter(s => {
+    const matchClass = currentFilter === 'all' || s.class === currentFilter;
+    const matchSearch = !query ||
+      s.id.includes(query) ||
+      s.name.toLowerCase().includes(query) ||
+      s.desc.toLowerCase().includes(query);
+    return matchClass && matchSearch;
   });
+
+  document.getElementById('countLabel').textContent = `${filtered.length} de ${scps.length} registros`;
+
+  if(filtered.length === 0){
+    container.innerHTML = '<div class="no-results">// SIN RESULTADOS — AJUSTE LOS FILTROS</div>';
+    return;
+  }
+
+  filtered.forEach(scp => {
+    const div = document.createElement('div');
+    div.className = 'card';
+    div.innerHTML = `
+      <span class="scp-id">SCP-${scp.id}</span>
+      <img src="${scp.img}" alt="SCP-${scp.id}" loading="lazy" onerror="this.src='https://via.placeholder.com/400x160/0f0f0f/333?text=IMAGEN+NO+DISPONIBLE'">
+      <div class="card-content">
+        <h3>${scp.name}</h3>
+        <p>${scp.desc}</p>
+        <button class="btn-ver" onclick="openModal('${scp.id}')">▶ VER ARCHIVO</button>
+      </div>
+      <span class="scp-class-badge ${badgeClass[scp.class] || ''}">${scp.class.toUpperCase()}</span>
+    `;
+    container.appendChild(div);
+  });
+}
+
+function filterSCPs(){ renderSCPs(); }
+
+function setFilter(cls, btn){
+  currentFilter = cls;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderSCPs();
 }
 
 function openModal(id){
   const scp = scps.find(s => s.id === id);
-  document.getElementById("modalTitle").innerText = `SCP-${scp.id} (${scp.name})`;
-  document.getElementById("modalText").innerText = scp.full;
-  document.getElementById("modal").classList.add("active");
+  document.getElementById('modalTitle').textContent = `SCP-${scp.id} — ${scp.name}`;
+  document.getElementById('modalText').textContent = scp.full;
+  document.getElementById('modalImg').src = scp.img;
+  document.getElementById('modal').classList.add('active');
 }
 
 function closeModal(){
-  document.getElementById("modal").classList.remove("active");
+  document.getElementById('modal').classList.remove('active');
 }
 
-function showSection(id){
-  document.querySelectorAll("section").forEach(s=>s.classList.remove("active"));
-  document.getElementById(id).classList.add("active");
+function handleModalClick(e){
+  if(e.target === document.getElementById('modal')) closeModal();
+}
+
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape') closeModal();
+});
+
+function showSection(id, el){
+  document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+  if(el) el.classList.add('active');
 }
 
 renderSCPs();
-
 </script>
-
 </body>
 </html>
